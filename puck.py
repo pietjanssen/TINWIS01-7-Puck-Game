@@ -1,3 +1,5 @@
+import random
+
 import math
 import numpy as np
 import pygame
@@ -23,7 +25,7 @@ class Puck:
         self.force = [0, 0]
         self.mass = mass
         self.radius = radius
-        self.color = colors[number]
+        self.color = [random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)]
         print(f"A new puck has been built: {self.name}")
         print(f"I am currently at {self.position}")
 
@@ -70,8 +72,7 @@ class Puck:
                         self.energy[i] = calc_kinetic_energy(self.velocity[i], self.mass)
 
                         # Check for collision with any walls
-                        if ((self.position[i] + self.velocity[i]) > (WINDOW_PARAMETERS[i] - self.radius - 5) \
-                                or ((self.position[i] + self.velocity[i]) < (self.radius + 5))):  # 5 for wall thickness
+                        if (self.position[i] + self.velocity[i]) > (WINDOW_PARAMETERS[i] - self.radius - 5) or ((self.position[i] + self.velocity[i]) < (self.radius + 5)):  # 5 for wall thickness
                             self.energy[i] = self.energy[i] * -simulated_elasticity
                             self.velocity[i] = calc_velocity(self.energy[i], self.mass)
 
@@ -102,7 +103,7 @@ def calc_kinetic_energy(velocity, mass):
 # v = sqrt(E / (1/2*mass))
 def calc_velocity(energy, mass):
     if energy != 0:
-        velocity = math.sqrt(abs((energy) / (1 / 2 * mass)))
+        velocity = math.sqrt(abs(energy / (1 / 2 * mass)))
         if energy < 0:
             velocity = velocity * -1
         return velocity
@@ -152,4 +153,3 @@ def calc_total_energy(p1_energy, p2_energy):
     p1_sum = '{0:.6g}'.format(p1_sum)
     p2_sum = '{0:.6g}'.format(p2_sum)
     return f"p1:{p1_sum} + p2:{p2_sum} = {total_sum}"
-
