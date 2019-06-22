@@ -17,7 +17,7 @@ colors = [[255, 255, 255],
 
 
 class Puck:
-    def __init__(self, position, radius, number, mass):
+    def __init__(self, position, radius, number, mass, color=None):
         self.name = f"Puck_{number}"
         self.position = position
         self.energy = [0, 0]
@@ -25,7 +25,10 @@ class Puck:
         self.force = [0, 0]
         self.mass = mass
         self.radius = radius
-        self.color = [random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)]
+        if color:
+            self.color = color
+        else:
+            self.color = [random.randint(10, 255), random.randint(10, 255), random.randint(10, 255)]
         print(f"A new puck has been built: {self.name}")
         print(f"I am currently at {self.position}")
 
