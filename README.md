@@ -35,16 +35,16 @@ A starting power that accelerates the pucks by it's amount.
 The user can input the following buttons to apply a force to a puck:
 
 ![Screenshot of keyup](https://d1nhio0ox7pgb.cloudfront.net/_img/v_collection_png/48x48/shadow/keyboard_key_up.png)
-Apply a force up
+Apply a force up to the white puck
 
 ![Screenshot of keyleft](https://d1nhio0ox7pgb.cloudfront.net/_img/v_collection_png/48x48/shadow/keyboard_key_left.png)
-Apply a force to the left
+Apply a force to the left to the white puck
 
 ![Screenshot of keyright](https://d1nhio0ox7pgb.cloudfront.net/_img/v_collection_png/48x48/shadow/keyboard_key_right.png)
-Apply a force to the right
+Apply a force to the right to the white puck
 
 ![Screenshot of keydown](https://d1nhio0ox7pgb.cloudfront.net/_img/v_collection_png/48x48/shadow/keyboard_key_down.png)
-Apply a force down
+Apply a force down to the white puck
 
 ![Screenshot of spacebardown](https://d1nhio0ox7pgb.cloudfront.net/_img/v_collection_png/48x48/shadow/keyboard_key_empty.png)
 Apply a random force in a random direction to all pucks
