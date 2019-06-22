@@ -50,5 +50,12 @@ Apply a force down to the white puck
 Apply a random force in a random direction to all pucks
 
 ### Mass
+The mass of a puck. The mass of each puck determines how "heavy" a puck is.
+The heavier the puck, the more force it needs to accelerate
 
 ### Kinetic Energy
+The energy of a puck determines how much each puck impacts the other puck in movement.
+
+
+![Screenshot of Kinetic energy](http://puu.sh/DJj5K/deb4380784.png)
+*Taken from https://en.wikipedia.org/wiki/Elastic_collision
