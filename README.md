@@ -12,6 +12,17 @@ And install the modules required using:
 pip install -r requirements.txt
 ```
 
+### How to use it:
+In order to run the program, you will need run main.py
+```
+python main.py
+```
+
+You can add an amount (default=2) using the parameter -amount
+```
+python main.py -amount 10
+```
+
 ## How it works:
 In order to move and let the pucks interact with eachother, every puck has it's own position, velocity, force, mass and Kinetic Energy.
 
