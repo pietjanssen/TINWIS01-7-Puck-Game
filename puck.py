@@ -19,11 +19,17 @@ colors = [[255, 255, 255],
 class Puck:
     def __init__(self, position, radius, number, mass, color=None):
         self.name = f"Puck_{number}"
+        # [0-1000, 0-500]
         self.position = position
+        # Energy J
         self.energy = [0, 0]
+        # Velocity m/s
         self.velocity = [0, 0]
+        # Force N
         self.force = [0, 0]
+        # Mass kg
         self.mass = mass
+        # Radius Pixels
         self.radius = radius
         if color:
             self.color = color
@@ -88,21 +94,26 @@ class Puck:
         return f"name: {self.name} - x: {self.position[0]}, y: {self.position[1]}, enx: {self.energy[0]}, eny: {self.energy[1]}, velx: {self.velocity[0]}, vely: {self.velocity[1]}"
 
 
+# Detect collision for circle with another circle
+# http://www.jeffreythompson.org/collision-detection/circle-circle.php
 def detect_collision(self, other):
-    a, b = abs(self.position[0] - other.position[0]), abs(self.position[1] - other.position[1])
-    if pythagoras(a, b) <= self.radius + other.radius:
+    dist_x = abs(self.position[0] - other.position[0])
+    dist_y = abs(self.position[1] - other.position[1])
+    if pythagoras(dist_x, dist_y) <= self.radius + other.radius:
         return True
     return False
 
 
+# Kinetic Energy calculation
 # E = (1/2)*mass * (velocity)^2
 def calc_kinetic_energy(velocity, mass):
-    energy = (1 / 2) * mass * (velocity ** 2)
+    energy = (1 / 2) * mass * (velocity * velocity)
     if velocity < 0:
         energy = energy * -1
     return energy
 
 
+# Velocity calcution
 # v = sqrt(E / (1/2*mass))
 def calc_velocity(energy, mass):
     if energy != 0:
@@ -113,7 +124,7 @@ def calc_velocity(energy, mass):
     else:
         return 0
 
-
+# Pythagoras calculation
 def pythagoras(a, b):
     a = a * a
     b = b * b
@@ -121,23 +132,21 @@ def pythagoras(a, b):
     return c
 
 
-# Formula: (end of page)
-# https://en.wikipedia.org/wiki/Elastic_collision
-# Two-dimensional collision with two moving objects
-
 def _calc_new_vector(x1, x2, v1, v2, m1, m2):
     v1_new = v1 - 2 * m2 / (m2 + m1) * np.dot(v1 - v2, x1 - x2) / np.dot(x1 - x2, x1 - x2) * (x1 - x2)
     v2_new = v2 - 2 * m1 / (m1 + m2) * np.dot(v2 - v1, x2 - x1) / np.dot(x2 - x1, x2 - x1) * (x2 - x1)
     return v1_new, v2_new
 
 
-def calc_new_vector(x1, x2, v1, v2, m1, m2):
-    self_pos = pygame.math.Vector2(x1[0], x1[1])
-    self_vel = pygame.math.Vector2(v1[0], v1[1])
+# Two-dimensional collision with two moving objects
+# https://en.wikipedia.org/wiki/Elastic_collision
+def calc_new_vector(position_1, position_2, velocity_1, velocity_2, mass_1, mass_2):
+    self_pos = pygame.math.Vector2(position_1[0], position_1[1])
+    self_vel = pygame.math.Vector2(velocity_1[0], velocity_1[1])
 
-    other_pos = pygame.math.Vector2(x2[0], x2[1])
-    other_vel = pygame.math.Vector2(v2[0], v2[1])
-    self_result, other_result = _calc_new_vector(self_pos, other_pos, self_vel, other_vel, m1, m2)
+    other_pos = pygame.math.Vector2(position_2[0], position_2[1])
+    other_vel = pygame.math.Vector2(velocity_2[0], velocity_2[1])
+    self_result, other_result = _calc_new_vector(self_pos, other_pos, self_vel, other_vel, mass_1, mass_2)
 
     self_vel[0] = self_result[0]
     self_vel[1] = self_result[1]
@@ -151,8 +160,5 @@ def calc_total_energy(p1_energy, p2_energy):
     p1_sum = abs(p1_energy[0]) + abs(p1_energy[1])
     p2_sum = abs(p2_energy[0]) + abs(p2_energy[1])
 
-    total_sum = '{0:.6g}'.format((p1_sum + p2_sum))
-
-    p1_sum = '{0:.6g}'.format(p1_sum)
-    p2_sum = '{0:.6g}'.format(p2_sum)
+    total_sum = p1_sum + p2_sum
     return f"p1:{p1_sum} + p2:{p2_sum} = {total_sum}"
