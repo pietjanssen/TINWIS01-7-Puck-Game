@@ -35,6 +35,8 @@ Example:
 ### Velocity
 A list consisting of a x velocity and y velocity.
 
+v = m/s
+
 Example:
 [1, -1]
 
@@ -42,6 +44,8 @@ Example:
 
 ### Force
 A starting power that accelerates the pucks by it's amount.
+
+F = N
 
 The user can input the following buttons to apply a force to a puck:
 
@@ -64,9 +68,12 @@ Apply a random force in a random direction to all pucks
 The mass of a puck. The mass of each puck determines how "heavy" a puck is.
 The heavier the puck, the more force it needs to accelerate
 
-### Kinetic Energy
+m = kg
+
+### Energy
 The energy of a puck determines how much each puck impacts the other puck in movement.
 
+E = J
 
 ![Screenshot of Kinetic energy](http://puu.sh/DJj5K/deb4380784.png)
 *Taken from https://en.wikipedia.org/wiki/Elastic_collision
