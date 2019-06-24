@@ -59,7 +59,7 @@ class Puck:
 
                 # Check for any pucks colliding with other pucks
                 if detect_collision(self, puck):
-                    print("\nThat's a collision")
+                    print("\nCollision detected")
                     print(calc_total_energy(self.energy, puck.energy))
                     self.collide(puck)
                     print(calc_total_energy(self.energy, puck.energy))
@@ -85,7 +85,7 @@ class Puck:
         self.force = [0, 0]
 
     def stats(self):
-        print(f"name: {self.name} - x: {self.position[0]}, y: {self.position[1]}, enx: {self.energy[0]}, eny: {self.energy[1]}, velx: {self.velocity[0]}, vely: {self.velocity[1]}")
+        return f"name: {self.name} - x: {self.position[0]}, y: {self.position[1]}, enx: {self.energy[0]}, eny: {self.energy[1]}, velx: {self.velocity[0]}, vely: {self.velocity[1]}"
 
 
 def detect_collision(self, other):

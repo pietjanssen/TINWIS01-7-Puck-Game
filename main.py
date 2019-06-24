@@ -7,11 +7,14 @@ from puck import Puck, pythagoras
 
 def run(amount):
     pygame.init()
+    font = pygame.font.SysFont('Comic Sans MS', 30)
+    font.render('GeeksForGeeks', True, (255, 255, 255), (0, 0, 128))
+
     # Set the name of the window
     pygame.display.set_caption("Puck Game")
 
     clock = pygame.time.Clock()
-    puck_radius = 30
+    puck_radius = 50
 
     for puck_amount in range(amount):
         # if puck_amount > 0 and puck_amount % 5 == 0:
@@ -19,20 +22,25 @@ def run(amount):
 
         if PUCKS:
             puck_placed = False
+            no_pucks = True
             while not puck_placed:
-                x_position = (round(random.randint(0, WINDOW_PARAMETERS[0] - puck_radius - 5)))
-                y_position = (round(random.randint(0, WINDOW_PARAMETERS[1] + puck_radius + 5)))
+                x_position = (round(random.randint(puck_radius + 5, (WINDOW_PARAMETERS[0] - puck_radius - 5))))
+                y_position = (round(random.randint(puck_radius + 5, (WINDOW_PARAMETERS[1] - puck_radius - 5))))
 
                 p1_position = [x_position, y_position]
                 for puck in PUCKS:
-                    a, b = abs(puck.position[0] - x_position), abs(puck.position[1] - y_position)
-                    if not pythagoras(a, b) <= puck.radius + puck_radius:
-                        PUCKS.append(Puck(position=p1_position, radius=puck_radius, number=puck_amount, mass=1))
-                        puck_placed = True
-                        break
+                    distX = abs(p1_position[0] - puck.position[0])
+                    distY = abs(p1_position[1] - puck.position[1])
+                    if pythagoras(distX, distY) <= puck.radius + puck_radius:
+                        print("New Puck placed at same position as: " + puck.name)
+                        no_pucks = False
+                if no_pucks:
+                    PUCKS.append(Puck(position=p1_position, radius=puck_radius, number=puck_amount, mass=1))
+                    puck_placed = True
+                no_pucks = True
         else:
-            x_position = (round(random.randint(0, WINDOW_PARAMETERS[0] - puck_radius)))
-            y_position = (round(random.randint(0, WINDOW_PARAMETERS[1] - puck_radius)))
+            x_position = (round(random.randint(puck_radius + 5, (WINDOW_PARAMETERS[0] - puck_radius - 5))))
+            y_position = (round(random.randint(puck_radius + 5, (WINDOW_PARAMETERS[1] - puck_radius - 5))))
             p1_position = [x_position, y_position]
             PUCKS.append(
                 Puck(position=p1_position, radius=puck_radius, number=puck_amount, mass=1, color=[255, 255, 255]))
@@ -57,16 +65,16 @@ def run(amount):
                     PUCKS[0].force[0] = 1.0
                 if event.key == pygame.K_SPACE:
                     for puck in PUCKS:
-                        puck.force[0] = round(random.randint(-10, 10) / len(PUCKS))
-                        puck.force[1] = round(random.randint(-10, 10) / len(PUCKS))
+                        puck.force[0] = round(random.randint(-10, 10))
+                        puck.force[1] = round(random.randint(-10, 10))
 
-        SCREEN.fill(BLACK)  # Clear screen on frame start, then build arena wals
+        SCREEN.fill(BLACK)  # Clear screen on frame start, then build arena walls
         pygame.draw.rect(SCREEN, ORANGE, [0, 0, WINDOW_PARAMETERS[0], WINDOW_PARAMETERS[1]], 10)
 
         # Process each created object
         for p in PUCKS:
             p.frame_process()
-            # p.stats() Used for debugging, prints all Puck parameters
+            # p.stats()  # Used for debugging, prints all Puck parameters
             p.draw()
 
         pygame.display.flip()
